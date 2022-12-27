@@ -5,6 +5,7 @@ import Layouts from "@/layout/Layouts";
 import Login from "@/views/Login/Login";
 import Portal from "@/views/System/Portal/Portal";
 import UserManage from '@/views/System/UserManage/UserManage';
+import RequestDemo from '@/views/System/RequestDemo/RequestDemo'
 import NotFound from '@/views/Error/NotFound';
 
 
@@ -30,6 +31,10 @@ const routeList: RouteObject[] = [
         path:'UserManage',
         element:<UserManage></UserManage>
       },
+      {
+        path: 'RequestDemo',
+        element : <RequestDemo></RequestDemo>
+      }
     ]
   },
   {

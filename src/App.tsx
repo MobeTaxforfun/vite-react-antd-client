@@ -1,5 +1,6 @@
-import React,{useEffect} from 'react'
-import { ConfigProvider ,theme as antdTheme} from 'antd'
+import React, { useEffect } from 'react'
+import { Button,ConfigProvider, message, theme as antdTheme } from 'antd'
+
 // redux 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
@@ -11,8 +12,10 @@ import GetRouters from './routers';
 
 function App() {
 
-  const { theme } = useSelector((state : RootState )=> state.global);
+  const { theme } = useSelector((state: RootState) => state.global);
   const dispatch = useDispatch();
+
+  const [messageApi, contextHolder] = message.useMessage();
 
   // 分派 Redux
   const setTheme = (dark = true) => {
@@ -24,7 +27,7 @@ function App() {
   };
 
   // 初始化夜間/淺色
-  useEffect(()=>{
+  useEffect(() => {
     setTheme(theme === 'dark');
     if (!localStorage.getItem('theme')) {
       const mql = window.matchMedia('(prefers-color-scheme: dark)');
@@ -33,17 +36,26 @@ function App() {
       }
       mql.addEventListener('change', matchMode);
     }
-  },[]);
+  }, []);
+
+  const info = () => {
+    messageApi.info('Hello, Ant Design!');
+  };
 
   return (
-    <ConfigProvider
-    componentSize="middle"
-    theme={
-      {token:{colorPrimary: '#13c2c2'},
-      algorithm: theme === 'dark' ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm }
-    }>
+    <React.Fragment>
+      {contextHolder}
+      <ConfigProvider
+        componentSize="middle"
+        theme={
+          {
+            token: { colorPrimary: '#13c2c2' },
+            algorithm: theme === 'dark' ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm
+          }
+        }>
         <GetRouters></GetRouters>
-    </ConfigProvider>
+      </ConfigProvider>
+    </React.Fragment>
   )
 }
 

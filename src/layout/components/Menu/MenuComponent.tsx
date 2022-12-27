@@ -39,6 +39,7 @@ const items: MenuItem[] = [
     getItem('角色管理', '6'),
     getItem('選單管理', '7'),
     getItem('權限管理', '8'),
+    getItem('請求範例','/RequestDemo')
   ]),
 
   getItem('系統監控', 'sub2', <AppstoreOutlined />, [
