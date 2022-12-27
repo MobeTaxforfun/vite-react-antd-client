@@ -2,7 +2,7 @@ import {FC, useEffect} from 'react'
 // Router
 import { Outlet } from 'react-router';
 // Antd 版型
-import { Drawer, Layout, theme } from 'antd';
+import { Drawer, Layout, theme ,message } from 'antd';
 import './Layouts.less';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,7 +24,6 @@ const Layouts: FC = () => {
   const { device,collapsed} = user;
   // 使用者操作類型
   const isMobile = device === 'MOBILE';
-
   // Toggle
   const toggle = () => {
     dispatch(

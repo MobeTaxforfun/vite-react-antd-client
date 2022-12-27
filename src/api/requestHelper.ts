@@ -1,55 +1,85 @@
-import axios, { AxiosResponse } from "axios";
+import { message } from "antd";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
 
 type Result<T> = {
-  code: number;
-  message: string;
-  result: T;
+  Status: number;
+  Message: string;
+  Success: boolean;
+  ModelStateErrors?: any;
+  Data?: T;
 };
 
-export class AxiosUtil {
-  // axios 實體
-  instance: AxiosInstance;
+const service: AxiosInstance = axios.create({
+  baseURL: "https://localhost:7244",
+  timeout: 30000,
+});
 
-  baseConfig: AxiosRequestConfig = { baseURL: "/api", timeout: 60000 };
-
-  constructor(config?: AxiosRequestConfig) {
-    this.instance = axios.create(config);
-
-    // Request 前 這裡有兩個 Callback(成功,失敗)
-    this.instance.interceptors.request.use(
-      (config: AxiosRequestConfig) => {
-        const token = localStorage.getItem("token") as string;
-        if (token) {
-          config.headers!.Authorization = token;
-        }
-
-        return config;
-      },
-      (err: any) => {
-        return Promise.reject(err);
-      }
-    );
-
-    // Response 後 這裡有兩個 Callback(成功,失敗)
-    this.instance.interceptors.response.use(
-      (res: AxiosResponse) => {
-        // 呼叫成功
-        return res;
-      },
-      (err: any) => {
-        return Promise.reject(err.response);
-      }
-    );
+service.interceptors.request.use(
+  (config: AxiosRequestConfig) => {
+    return config;
+  },
+  (error: AxiosError) => {
+    return Promise.reject(error);
   }
-  request(config: AxiosRequestConfig) {
-    return this.instance.request(config);
-  }
+);
 
-  public get<T = any>(
+service.interceptors.response.use(
+  (response: AxiosResponse) => {
+    const { status, statusText, data } = response;
+    if (status === 200) {
+      if (data.Status) {
+        message.success(data.Message, 1);
+      } else {
+        message.error(data.Message, 1);
+      }
+      return data;
+    } else {
+      return Promise.reject(statusText);
+    }
+  },
+  (error: AxiosError) => {
+    const status = error.response?.status;
+    switch (status) {
+      case 401:
+        message.error("尚未認證!!", 1);
+        break;
+      case 403:
+        message.error("尚無權限!!", 1);
+        break;
+      default:
+        message.error("伺服器忙碌中，請稍後再試!!!", 1);
+        break;
+    }
+    return Promise.reject(error);
+  }
+);
+
+export const AxiosUtil = {
+  get<T = any>(url: string, config?: AxiosRequestConfig): Promise<Result<T>> {
+    return service.get(url, config);
+  },
+
+  post<T = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig
+  ): Promise<Result<T>> {
+    return service.post(url, data, config);
+  },
+
+  put<T = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<Result<T>>> {
+    return service.put(url, data, config);
+  },
+
+  delete<T = any>(
     url: string,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse<Result<T>>> {
-    return this.instance.get(url, config);
-  }
-}
+    return service.delete(url, config);
+  },
+};
