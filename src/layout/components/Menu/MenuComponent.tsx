@@ -36,9 +36,9 @@ const items: MenuItem[] = [
 
   getItem('系統管理', 'sub1', <MailOutlined />, [
     getItem('帳號管理', '/UserManage'),
-    getItem('角色管理', '6'),
-    getItem('選單管理', '7'),
-    getItem('權限管理', '8'),
+    getItem('角色管理', '/RoleManage'),
+    getItem('選單管理', '/MenuManage'),
+    getItem('權限管理', '/PromiseManage'),
     getItem('請求範例','/RequestDemo')
   ]),
 
