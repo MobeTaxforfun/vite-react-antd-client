@@ -72,14 +72,14 @@ export const AxiosUtil = {
     url: string,
     data?: any,
     config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<Result<T>>> {
+  ): Promise<Result<T>> {
     return service.put(url, data, config);
   },
 
   delete<T = any>(
     url: string,
     config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<Result<T>>> {
+  ): Promise<Result<T>> {
     return service.delete(url, config);
   },
 };

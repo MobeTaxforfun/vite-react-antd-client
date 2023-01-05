@@ -5,10 +5,7 @@ import { Button, Form, Input } from "antd"
 const FormValidateDemo = () => {
 
     const initValid: any = {
-        Id: {
-            validateStatus: '',
-            help: ''
-        },
+        Id: {},
         Name: {}
     };
 

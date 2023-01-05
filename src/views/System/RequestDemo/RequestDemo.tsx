@@ -1,9 +1,9 @@
 import { getFailed, getSuccessful, getTraceForbid, getTraceUnauthorized, postCreateDemo } from '@/api/axiosDemoApi/axiosDemo'
 import { Card, Row, Col, Button, Space } from 'antd'
 import React from 'react';
-import FormCreateDemo from './Components/FormCreateDemo';
-import FormValidateDemo from './Components/FormValidateDemo';
-import FormValidateSummary from './Components/FormValidateSummary';
+import FormCreateDemo from './components/FormCreateDemo';
+import FormValidateDemo from './components/FormValidateDemo';
+import FormValidateSummary from './components/FormValidateSummary';
 
 const RequestDemo = () => {
   const btnSuccessful = async () => {
