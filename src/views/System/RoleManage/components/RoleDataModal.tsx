@@ -35,7 +35,10 @@ const RoleDataModal: FC<RoleDataModalProps> = ({
     const [form] = Form.useForm();
     // 用 useEffect 掛載 antd form 組件不然更新 initialValues 的時候會怪怪的
     useEffect(() => {
-        form.setFieldsValue(values)
+        // 解決 Instance created by `useForm` is not connected to any Form element.
+        if (modalOpen) {
+            form.setFieldsValue(values);
+        }
     }, [form, values])
 
     const defaultModalInfo = {
@@ -104,7 +107,6 @@ const RoleDataModal: FC<RoleDataModalProps> = ({
                     name="RoleName"
                     label="角色名稱"
                     rules={[{ required: true, message: '角色名稱為必填' }]}>
-
                     <Input placeholder="請輸入角色名稱" />
                 </Form.Item>
                 <Form.Item
@@ -121,7 +123,7 @@ const RoleDataModal: FC<RoleDataModalProps> = ({
                     rules={[
                         { type: 'number', message: '排序必須為一數字' },
                         { required: true, message: '排序為必填' }]}>
-                    <InputNumber defaultValue="0" />
+                    <InputNumber />
                 </Form.Item>
                 <Form.Item
                     {...err.Status}

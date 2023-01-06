@@ -1,4 +1,4 @@
-import { IPageRole, TPostRole, TPutRole } from "@/data/role";
+import { IPageRole, TPostRole, TPutRole, TPutRoleStatus } from "@/data/role";
 import { AxiosUtil } from "../requestHelper";
 
 export const postCreateRole = async (data: TPostRole) => {
@@ -11,4 +11,12 @@ export const getListedRole = async (queryString: string) => {
 
 export const putUpdateRole = async (data: TPutRole) => {
   return await AxiosUtil.put("/api/Role", data);
+};
+
+export const deleteRole = async (id: number) => {
+  return await AxiosUtil.delete(`/api/Role/${id}`);
+};
+
+export const putSetStatus = async (data: TPutRoleStatus) => {
+  return await AxiosUtil.put("/api/Role/SetStatus", data);
 };

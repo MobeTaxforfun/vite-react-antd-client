@@ -40,3 +40,14 @@ export type TErrRole = {
   [Remark: string]: {};
   [create: string]: {};
 };
+
+export type TSearchRole = {
+  RoleName: string;
+  RoleCode: string;
+  Status: string;
+};
+
+export type TPutRoleStatus = {
+  Id: number;
+  Status: number;
+};
