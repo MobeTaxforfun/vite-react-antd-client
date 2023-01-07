@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Button,ConfigProvider, message, theme as antdTheme } from 'antd'
+import { Button, ConfigProvider, message, theme as antdTheme } from 'antd'
 
 // redux 
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,10 +37,6 @@ function App() {
       mql.addEventListener('change', matchMode);
     }
   }, []);
-
-  const info = () => {
-    messageApi.info('Hello, Ant Design!');
-  };
 
   return (
     <React.Fragment>
