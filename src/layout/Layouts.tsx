@@ -1,8 +1,8 @@
-import {FC, useEffect} from 'react'
+import { FC, useEffect } from 'react'
 // Router
 import { Outlet } from 'react-router';
 // Antd 版型
-import { Drawer, Layout, theme ,message } from 'antd';
+import { Drawer, Layout, theme, message } from 'antd';
 import './Layouts.less';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,10 +18,10 @@ const WIDTH = 992;
 
 const Layouts: FC = () => {
   // Redux
-  const user = useSelector((state:RootState) => state.user);
+  const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   // Redux 取 user資料
-  const { device,collapsed} = user;
+  const { device, collapsed } = user;
   // 使用者操作類型
   const isMobile = device === 'MOBILE';
   // Toggle
@@ -57,18 +57,18 @@ const Layouts: FC = () => {
     <Layout>
       <HeaderComponents collapsed={collapsed} toggle={toggle} ></HeaderComponents>
       <Layout>
-      {!isMobile ? (       
-      <Sider 
-        width="200"
-        trigger={null}
-        collapsible
-        collapsedWidth={isMobile ? 0 : 80}
-        collapsed={collapsed}
-        breakpoint="md"
-        style={{ backgroundColor: colorBgContainer }}>
-          <MenuComponent></MenuComponent>
-        </Sider>
-        ):(  <Drawer
+        {!isMobile ? (
+          <Sider
+            width="200"
+            trigger={null}
+            collapsible
+            collapsedWidth={isMobile ? 0 : 80}
+            collapsed={collapsed}
+            breakpoint="md"
+            style={{ backgroundColor: colorBgContainer }}>
+            <MenuComponent></MenuComponent>
+          </Sider>
+        ) : (<Drawer
           width="200"
           placement="left"
           bodyStyle={{ padding: 0, height: '100%' }}
