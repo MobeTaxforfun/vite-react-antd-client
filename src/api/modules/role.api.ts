@@ -1,5 +1,5 @@
 import { IPageRole, TPostRole, TPutRole, TPutRoleStatus } from "@/data/role";
-import { AxiosUtil } from "../requestHelper";
+import AxiosUtil from "../axiosUtil";
 
 export const postCreateRole = async (data: TPostRole) => {
   return await AxiosUtil.post("/api/Role", data);

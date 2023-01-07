@@ -1,4 +1,4 @@
-import { postCreateDemo } from "@/api/axiosDemoApi/axiosDemo";
+import { postCreateDemo } from "@/api/modules/axiosdemo.api";
 import { Button, Form, Input } from "antd"
 
 const FormCreateDemo = () => {

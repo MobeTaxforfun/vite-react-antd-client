@@ -1,12 +1,11 @@
-import { deleteRole, getListedRole, postCreateRole, putSetStatus, putUpdateRole } from '@/api/roleApi/roleApi';
+import { deleteRole, getListedRole, postCreateRole, putSetStatus, putUpdateRole } from '@/api/modules/role.api';
 import ModalConfirm from '@/components/ModalConfirm/ModalConfirm';
 import ShadowCard from '@/components/ShadowCard/ShadowCard';
-import ShadowSearchCard from '@/components/ShadowSearchCard/ShadowSearchCard';
-import TableOperate from '@/components/TableOperate/TableOperate';
+import ShadowSearchCard from '@/page/tablePage/ShadowSearchCard/ShadowSearchCard';
+import TableOperate from '@/page/tablePage/TableOperate/TableOperate';
 import { TPageModel } from '@/data/common';
 import { TErrRole, IRoleDataType, TSearchRole } from '@/data/role';
-import { parseModelState } from '@/utils/parseModelState';
-import { filterNonNull } from '@/utils/queryStringUtils';
+import { filterNonNull, parseModelState } from '@/utils/transObjUtil';
 import { RedoOutlined, SearchOutlined } from '@ant-design/icons';
 import { Button, Col, Empty, Row, Space, Switch, Table, Tooltip } from 'antd';
 import type { ColumnsType } from 'antd/es/table';

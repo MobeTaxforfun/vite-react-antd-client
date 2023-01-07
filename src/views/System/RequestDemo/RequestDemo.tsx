@@ -1,4 +1,4 @@
-import { getFailed, getSuccessful, getTraceForbid, getTraceUnauthorized, postCreateDemo } from '@/api/axiosDemoApi/axiosDemo'
+import { getFailed, getSuccessful, getTraceForbid, getTraceUnauthorized, postCreateDemo } from '@/api/modules/axiosdemo.api'
 import { Card, Row, Col, Button, Space } from 'antd'
 import React from 'react';
 import FormCreateDemo from './components/FormCreateDemo';
