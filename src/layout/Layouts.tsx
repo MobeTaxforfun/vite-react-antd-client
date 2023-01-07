@@ -18,10 +18,11 @@ const WIDTH = 992;
 
 const Layouts: FC = () => {
   // Redux
-  const user = useSelector((state: RootState) => state.user);
+
   const dispatch = useDispatch();
   // Redux 取 user資料
-  const { device, collapsed } = user;
+  const device = 'de';
+  const collapsed = false
   // 使用者操作類型
   const isMobile = device === 'MOBILE';
   // Toggle

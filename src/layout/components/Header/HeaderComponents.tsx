@@ -16,6 +16,7 @@ import { setGlobalState } from '@/store/global.store';
 import BreadcrumbNav from './components/BreadcrumbNav';
 import SidebarTrigger from './components/SidebarTrigger';
 import AvatarMenu from './components/AvatarMenu';
+import useTheme from '@/hooks/useTheme';
 // 定義 Props 介面
 interface IHeaderProps {
   collapsed: boolean;
@@ -29,20 +30,11 @@ const HeaderComponents: FC<IHeaderProps> = ({ collapsed, toggle }) => {
     token: { colorBgContainer },
   } = antdTheme.useToken();
 
-  // Redux Theme
-  const { theme } = useSelector((state: RootState) => state.global);
-  // Redux 分派
-  const dispatch = useDispatch();
+
+  const { theme,setTheme} =useTheme();
 
   const onChangeTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-
-    localStorage.setItem('theme', newTheme);
-    dispatch(
-      setGlobalState({
-        theme: newTheme,
-      }),
-    );
+    theme.theme === 'dark' ? setTheme({...theme, theme : 'default'}) : setTheme({...theme, theme : 'dark'});
   }
 
   return (
@@ -56,10 +48,10 @@ const HeaderComponents: FC<IHeaderProps> = ({ collapsed, toggle }) => {
           <BreadcrumbNav></BreadcrumbNav>
         </div>
         <div className='layout-page-header-main-ri'>
-          <Tooltip title={theme === 'dark' ? '切換至淺色版' : '切換至夜間版'}>
+          <Tooltip title={theme.theme === 'dark' ? '切換至淺色版' : '切換至夜間版'}>
             <span onClick={onChangeTheme}>
               {(() => {
-                if (theme === 'dark') {
+                if (theme.theme === 'dark') {
                   return (
                     <ClockCircleOutlined />
                   )
