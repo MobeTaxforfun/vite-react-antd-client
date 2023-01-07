@@ -1,5 +1,5 @@
-import {FC} from 'react'
-import { useRoutes ,RouteObject,Navigate } from "react-router-dom";
+import { FC } from 'react'
+import { useRoutes, RouteObject, Navigate } from "react-router-dom";
 
 import Layouts from "@/layout/Layouts";
 import Login from "@/views/Login/Login";
@@ -10,55 +10,60 @@ import NotFound from '@/views/Error/NotFound';
 import RoleManage from '@/views/System/RoleManage/RoleManage';
 import MenuManage from '@/views/System/MenuManage/MenuManage';
 import PromiseManage from '@/views/System/PromiseManage/PromiseManage';
+import UserCreate from '@/views/System/UserManage/UserCreate';
 
 
 const routeList: RouteObject[] = [
   {
     path: '/login',
-    element:<Login/>,
-    
+    element: <Login />,
+
   },
-  { 
+  {
     path: '/',
-    element :<Layouts/>,
-    children:[
+    element: <Layouts />,
+    children: [
       {
-        path:'',
-        element:<Navigate to="Portal"/>
+        path: '',
+        element: <Navigate to="Portal" />
       },
       {
-        path:'Portal',
-        element:<Portal></Portal>
+        path: 'Portal',
+        element: <Portal></Portal>
       },
       {
-        path:'UserManage',
-        element:<UserManage></UserManage>
+        path: 'UserManage',
+        element: <UserManage></UserManage>
+      },
+      {
+        path: 'UserManage/Create',
+        element: <UserCreate></UserCreate>
       },
       {
         path: 'RoleManage',
-        element : <RoleManage></RoleManage>
+        element: <RoleManage></RoleManage>
       },
       {
         path: 'MenuManage',
-        element : <MenuManage></MenuManage>
+        element: <MenuManage></MenuManage>
       },
       {
         path: 'PromiseManage',
-        element : <PromiseManage></PromiseManage>
+        element: <PromiseManage></PromiseManage>
       },
       {
         path: 'RequestDemo',
-        element : <RequestDemo></RequestDemo>
+        element: <RequestDemo></RequestDemo>
       }
     ]
   },
   {
     path: '*',
-    element:<NotFound></NotFound>
+    element: <NotFound></NotFound>
   }
 ];
 
-const GetRouters:FC = () => {
+const GetRouters: FC = () => {
   const element = useRoutes(routeList);
   return element;
 }

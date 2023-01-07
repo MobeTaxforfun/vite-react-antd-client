@@ -1,4 +1,4 @@
-import { AxiosUtil } from "../requestHelper";
+import AxiosUtil from "../axiosUtil";
 
 export const getSuccessful = async () => {
   return await AxiosUtil.get("/api/AxiosDemo/Successful");
@@ -30,17 +30,7 @@ export const postCreateDemo = async (data: IPostCreateDemo) => {
 };
 
 export const postCreateValidate = async (data: any) => {
-  let params = new URLSearchParams();
-  for (let key in data) {
-    if (data[key] != null) params.append(key, data[key]);
-    else params.append(key, "");
-  }
-
-  return await AxiosUtil.post("/api/AxiosDemo/CreateValidate", params, {
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
-    },
-  });
+  return await AxiosUtil.postParamsData("/api/AxiosDemo/CreateValidate", data);
 };
 
 export const postCreateValidateSummary = async (data: any) => {

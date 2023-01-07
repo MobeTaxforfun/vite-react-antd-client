@@ -1,14 +1,11 @@
-import { postCreateDemo, postCreateValidate } from "@/api/axiosDemoApi/axiosDemo";
+import { postCreateDemo, postCreateValidate } from "@/api/modules/axiosdemo.api";
 import React, { useState } from "react";
 import { Button, Form, Input } from "antd"
 
 const FormValidateDemo = () => {
 
     const initValid: any = {
-        Id: {
-            validateStatus: '',
-            help: ''
-        },
+        Id: {},
         Name: {}
     };
 
