@@ -14,6 +14,7 @@ const Layouts: FC = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  const device = /(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent) ? 'MOBILE' : 'DESKTOP';
   const { currentLayout,onChangeCollapse} = useLayout();
   
   return (

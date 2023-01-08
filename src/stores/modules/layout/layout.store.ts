@@ -1,10 +1,11 @@
 import { DEVICE } from "@/config/config";
 import { ILayoutState } from "@/stores/data/store.d";
+import { getInitGlobal } from "@/utils/getGloabal";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const layoutState: ILayoutState = {
-  currentDevice: DEVICE.DESKTOP,
-  collapsed: true,
+  currentDevice: getInitGlobal().device,
+  collapsed: getInitGlobal().collapsed,
 };
 
 const layoutSlice = createSlice({
