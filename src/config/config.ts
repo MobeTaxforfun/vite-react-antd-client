@@ -3,5 +3,10 @@
 
 export const THEME = {
   LIGHT: "light",
-  DARK: "dark",
+  DARK: "default",
+};
+
+export const DEVICE = {
+  MOBILE: "mobile",
+  DESKTOP: "desktop",
 };

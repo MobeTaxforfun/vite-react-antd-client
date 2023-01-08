@@ -1,10 +1,11 @@
 
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import globalReducer from '@/stores/modules/global/global.store';
-import { deflate } from "zlib";
+import layoutReducer from '@/stores/modules/layout/layout.store';
 
 const rootReducer = combineReducers({
-    global: globalReducer
+    global: globalReducer,
+    layout: layoutReducer
 });
 
 const store = configureStore({

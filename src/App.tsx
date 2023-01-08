@@ -1,17 +1,16 @@
-import React, { useEffect } from 'react'
-import { ConfigProvider, message, theme as antdTheme } from 'antd'
-
+import React from 'react'
+import { ConfigProvider, message, theme } from 'antd'
+import GetRouters from './routers';
+import useCurrentTheme from '@/hooks/useCurrentTheme';
 import 'antd/dist/reset.css'
 import './App.css'
-import GetRouters from './routers';
-import useTheme from './hooks/useTheme';
+import { THEME } from './config/config';
 
 function App() {
 
   const [messageApi, contextHolder] = message.useMessage();
+  const { currentTheme } = useCurrentTheme();
 
-  const { theme } = useTheme();
-  debugger;
   return (
     <React.Fragment>
       {contextHolder}
@@ -20,7 +19,7 @@ function App() {
         theme={
           {
             token: { colorPrimary: '#13c2c2' },
-            algorithm: theme.theme === 'dark' ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm
+            algorithm: currentTheme.theme === THEME.DARK ? theme.darkAlgorithm : theme.defaultAlgorithm
           }
         }>
         <GetRouters></GetRouters>

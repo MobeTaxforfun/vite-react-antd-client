@@ -1,84 +1,34 @@
 import { FC, useEffect } from 'react'
-// Router
 import { Outlet } from 'react-router';
-// Antd 版型
-import { Drawer, Layout, theme, message } from 'antd';
+import { Drawer, Layout, theme } from 'antd';
 import './Layouts.less';
-// Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store';
-import { setUserItem } from '@/store/user.store';
-// Custom Components
-import { getGlobalState } from '@/utils/getGloabal';
 import HeaderComponents from '@/layout/components/Header/HeaderComponents';
 import MenuComponent from './components/Menu/MenuComponent';
+import useLayout from '@/hooks/useLayout';
 
 const { Content, Sider } = Layout;
 const WIDTH = 992;
-
 const Layouts: FC = () => {
-  // Redux
-
-  const dispatch = useDispatch();
-  // Redux 取 user資料
-  const device = 'de';
-  const collapsed = false
-  // 使用者操作類型
-  const isMobile = device === 'MOBILE';
-  // Toggle
-  const toggle = () => {
-    dispatch(
-      setUserItem({
-        collapsed: !collapsed,
-      }),
-    );
-  };
 
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  useEffect(() => {
-    window.onresize = () => {
-      const { device } = getGlobalState();
-      console.log(device);
-      const rect = document.body.getBoundingClientRect();
-      const needCollapse = rect.width < WIDTH;
-
-      dispatch(
-        setUserItem({
-          device,
-          collapsed: needCollapse,
-        }),
-      );
-    };
-  }, [dispatch]);
-
+  const { currentLayout,onChangeCollapse} = useLayout();
+  
   return (
     <Layout>
-      <HeaderComponents collapsed={collapsed} toggle={toggle} ></HeaderComponents>
+      <HeaderComponents></HeaderComponents>
       <Layout>
-        {!isMobile ? (
-          <Sider
-            width="200"
-            trigger={null}
-            collapsible
-            collapsedWidth={isMobile ? 0 : 80}
-            collapsed={collapsed}
-            breakpoint="md"
-            style={{ backgroundColor: colorBgContainer }}>
-            <MenuComponent></MenuComponent>
-          </Sider>
-        ) : (<Drawer
-          width="200"
-          placement="left"
-          bodyStyle={{ padding: 0, height: '100%' }}
-          closable={false}
-          onClose={toggle}
-          open={!collapsed}
-        >
+        <Sider
+          breakpoint="lg"
+          collapsedWidth="0"
+          trigger={null}
+          collapsible = {true}
+          collapsed ={currentLayout.collapsed}
+          style={{ backgroundColor: colorBgContainer }}>
           <MenuComponent></MenuComponent>
-        </Drawer>)}
+        </Sider>
         <Layout>
           <Content
             style={{

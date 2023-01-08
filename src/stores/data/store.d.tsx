@@ -1,10 +1,9 @@
-
 /**
  * 全域風格
  */
-export interface IThemeConfig
+export interface IAppThemeConfig
 {
-    theme:'dark' | 'default';
+    theme: string;
 }
 
 /**
@@ -13,5 +12,13 @@ export interface IThemeConfig
 export interface IGlobalState {
     token: string;
     userInfo: any;
-    themeConfig : IThemeConfig;
+    appThemeConfig : IAppThemeConfig;
+}
+
+/**
+ * 控制板型 手機/桌機 與 Menu 開關
+ */
+export interface ILayoutState{
+    currentDevice : string
+    collapsed : boolean
 }
