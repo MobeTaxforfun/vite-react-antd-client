@@ -1,11 +1,11 @@
 import { getFailed, getSuccessful, getTraceForbid, getTraceUnauthorized } from '@/api/modules/axiosdemo.api'
-import { setToken } from '@/stores/modules/global/global.store';
+import { setStoreToken } from '@/stores/modules/global/global.store';
 import { Card, Row, Col, Button, Space } from 'antd'
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import FormCreateDemo from './components/FormCreateDemo';
-import FormValidateDemo from './components/FormValidateDemo';
-import FormValidateSummary from './components/FormValidateSummary';
+import FormCreateDemo from './Components/FormCreateDemo';
+import FormValidateDemo from './Components/FormValidateDemo';
+import FormValidateSummary from './Components/FormValidateSummary';
 import { RootState } from '../../../stores/initStores';
 
 const RequestDemo = () => {
@@ -30,7 +30,7 @@ const RequestDemo = () => {
   }
 
   const btnReduxSetToken = () => {
-    dispatch(setToken("test"));
+    dispatch(setStoreToken("test"));
     console.log(tokenNow);
   }
 

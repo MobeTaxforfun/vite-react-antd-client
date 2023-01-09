@@ -3,16 +3,15 @@ import {
     MenuUnfoldOutlined, 
     MenuFoldOutlined,
    } from '@ant-design/icons';
-//定義
-interface ISidebarTriggerProps{
-    collapsed: boolean;
-    toggle: () => void;
-}
+import useLayout from '@/hooks/useLayout';
 
-const SidebarTrigger:FC<ISidebarTriggerProps> = ({ collapsed, toggle }) => {
+const SidebarTrigger:FC= () => {
+
+  const { currentLayout,onChangeCollapse} = useLayout();
+
   return (
-    <span id="sidebar-trigger" onClick={toggle}>
-    {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+    <span id="sidebar-trigger" onClick={onChangeCollapse}>
+    {currentLayout.collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
   </span>
   )
 }

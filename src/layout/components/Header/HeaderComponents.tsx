@@ -1,48 +1,29 @@
-import { FC, createElement } from 'react';
-import { Layout, Tooltip, theme as antdTheme } from 'antd';
-// antd icon 
+import { FC } from 'react';
+import { Layout, Tooltip, theme } from 'antd';
 import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
   ClockCircleOutlined,
   ClockCircleFilled
 } from '@ant-design/icons';
 const { Header } = Layout;
-//Redux 
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store';
-import { setGlobalState } from '@/store/global.store';
-// Custom
 import BreadcrumbNav from './components/BreadcrumbNav';
 import SidebarTrigger from './components/SidebarTrigger';
 import AvatarMenu from './components/AvatarMenu';
+import useTheme from '@/hooks/useCurrentTheme';
+import { THEME } from '@/config/config';
 // 定義 Props 介面
-interface IHeaderProps {
-  collapsed: boolean;
-  toggle: () => void;
-}
 
-const HeaderComponents: FC<IHeaderProps> = ({ collapsed, toggle }) => {
-
+const HeaderComponents: FC = () => {
   // 風格
   const {
     token: { colorBgContainer },
-  } = antdTheme.useToken();
-
-  // Redux Theme
-  const { theme } = useSelector((state: RootState) => state.global);
-  // Redux 分派
-  const dispatch = useDispatch();
+  } = theme.useToken();
+  
+  const { currentTheme,setCurrentTheme} =useTheme();
 
   const onChangeTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-
-    localStorage.setItem('theme', newTheme);
-    dispatch(
-      setGlobalState({
-        theme: newTheme,
-      }),
-    );
+    currentTheme.theme === THEME.DARK? 
+    setCurrentTheme({...currentTheme, theme : THEME.LIGHT}) : 
+    setCurrentTheme({...currentTheme, theme : THEME.DARK});
   }
 
   return (
@@ -52,14 +33,14 @@ const HeaderComponents: FC<IHeaderProps> = ({ collapsed, toggle }) => {
       </div>
       <div className="layout-page-header-main">
         <div className='layout-page-header-main-li'>
-          <SidebarTrigger collapsed={collapsed} toggle={toggle}></SidebarTrigger>
+          <SidebarTrigger></SidebarTrigger>
           <BreadcrumbNav></BreadcrumbNav>
         </div>
         <div className='layout-page-header-main-ri'>
-          <Tooltip title={theme === 'dark' ? '切換至淺色版' : '切換至夜間版'}>
+          <Tooltip title={currentTheme.theme === 'dark' ? '切換至淺色版' : '切換至夜間版'}>
             <span onClick={onChangeTheme}>
               {(() => {
-                if (theme === 'dark') {
+                if (currentTheme.theme === 'dark') {
                   return (
                     <ClockCircleOutlined />
                   )
