@@ -2,7 +2,7 @@ import { message } from "antd";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import { TResult } from "./data/apiCommon";
-import { notifyStatus } from "./helper/notifyStatus";
+import { notifyStatus } from "./utils/notifyStatus";
 import { parseObjToSearchParams } from "@/utils/transObjUtil";
 
 const service: AxiosInstance = axios.create({
