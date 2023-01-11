@@ -1,6 +1,4 @@
-import { FC } from 'react'
-import { Navigate, createBrowserRouter, useRoutes } from "react-router-dom";
-import { CustomRouteObject } from './data/router';
+import { Navigate, createBrowserRouter, RouteObject } from "react-router-dom";
 import AuthRouter from './utils/authRouter';
 
 import Layouts from "@/layout/Layouts";
@@ -14,57 +12,57 @@ import MenuManage from '@/views/System/MenuManage/MenuManage';
 import PromiseManage from '@/views/System/PromiseManage/PromiseManage';
 import UserCreate from '@/views/System/UserManage/UserCreate';
 
-export const rootRouteList: CustomRouteObject[] = [
+const routerMeta = async (obj: any) => {
+  return obj;
+}
+
+const rootRouteList: RouteObject[] = [
   {
-    element: <AuthRouter />,
+    id: 'login',
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/',
+    element: <Layouts />,
     children: [
       {
-        path: '/login',
-        element: <Login />,
+        path: '',
+        element: <Navigate to="Portal" />
       },
       {
-        path: '/',
-        element: <Layouts />,
-        children: [
-          {
-            path: '',
-            element: <Navigate to="Portal" />
-          },
-          {
-            path: 'Portal',
-            element: <Portal></Portal>,
-          },
-          {
-            path: 'UserManage',
-            element: <UserManage></UserManage>
-          },
-          {
-            path: 'UserManage/Create',
-            element: <UserCreate></UserCreate>
-          },
-          {
-            path: 'RoleManage',
-            element: <RoleManage></RoleManage>
-          },
-          {
-            path: 'MenuManage',
-            element: <MenuManage></MenuManage>
-          },
-          {
-            path: 'PromiseManage',
-            element: <PromiseManage></PromiseManage>
-          },
-          {
-            path: 'RequestDemo',
-            element: <RequestDemo></RequestDemo>
-          }
-        ]
+        path: 'Portal',
+        element: <Portal></Portal>,
       },
       {
-        path: '*',
-        element: <NotFound></NotFound>
+        path: 'UserManage',
+        element: <UserManage></UserManage>
+      },
+      {
+        path: 'UserManage/Create',
+        element: <UserCreate></UserCreate>
+      },
+      {
+        path: 'RoleManage',
+        element: <RoleManage></RoleManage>
+      },
+      {
+        path: 'MenuManage',
+        element: <MenuManage></MenuManage>
+      },
+      {
+        path: 'PromiseManage',
+        element: <PromiseManage></PromiseManage>
+      },
+      {
+        path: 'RequestDemo',
+        element: <RequestDemo></RequestDemo>
       }
     ]
+  },
+  {
+    path: '*',
+    element: <NotFound></NotFound>
   }
 ];
 

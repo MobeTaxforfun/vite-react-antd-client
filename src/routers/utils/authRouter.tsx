@@ -1,25 +1,17 @@
-import { matchPath, Outlet, useLocation } from "react-router-dom";
-import { CustomRouteObject } from "../data/router";
-import { rootRouteList } from "../initRouter";
+import { FC, ReactElement } from 'react';
+import { MetaProps } from './getRouter';
 
-const authRouter = () => {
-  const location = useLocation();
+export interface IAuthRouter {
+  element?: React.ReactNode;
+  meta?: MetaProps
+}
 
-  let currentNode = searchRoute(location.pathname, rootRouteList);
-  debugger;
-  return <Outlet />;
+const authRouter: FC<IAuthRouter> = ({ element, meta }) => {
+  // 不驗證直接回傳
+  if (!meta?.requiresAuth) return (element as ReactElement);
+
+  // 做驗證的事情再回傳
+  return (element as ReactElement);
 };
 
 export default authRouter;
-
-export const searchRoute = (path: string, routes: CustomRouteObject[] = []): CustomRouteObject => {
-  let result: CustomRouteObject = {};
-  for (let item of routes) {
-    if (item.path === path) return item;
-    if (item.children) {
-      const res = searchRoute(path, item.children);
-      if (Object.keys(res).length) result = res;
-    }
-  }
-  return result;
-};
