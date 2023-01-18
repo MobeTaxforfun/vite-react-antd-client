@@ -1,17 +1,23 @@
 import { FC, ReactElement } from 'react';
-import { MetaProps } from './getRouter';
+import { Outlet, RouteObject, useMatches } from 'react-router-dom';
 
-export interface IAuthRouter {
-  element?: React.ReactNode;
-  meta?: MetaProps
+interface IAuthRouter {
+  element?: React.ReactNode
 }
 
-const authRouter: FC<IAuthRouter> = ({ element, meta }) => {
+const AuthRouter = () => {
   // 不驗證直接回傳
-  if (!meta?.requiresAuth) return (element as ReactElement);
-
+  let matches: RouteObject[] = useMatches();
+  const routesInfos = matches
+    .filter((match) => Boolean(match.handle?.routeMeta))
+    .map((match) => {
+      return {
+        title: match.handle.routeMeta.title,
+      };
+    });
+  console.log(routesInfos);
   // 做驗證的事情再回傳
-  return (element as ReactElement);
+  return <Outlet />;
 };
 
-export default authRouter;
+export default AuthRouter;

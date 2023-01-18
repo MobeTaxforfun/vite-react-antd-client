@@ -1,52 +1,24 @@
 /**
- * 作法應當是 自製的 Router Config => 翻譯成附加自製 Auth Components 的 Router Config
+ * 作法應當是 Router  => 翻譯成附加自製 Auth Components 的 Router Config
  */
 
-import Login from "@/views/Login/Login";
 import { ReactElement } from "react";
-import { RouteObject, RouteProps } from "react-router-dom";
+import { RouteObject } from "react-router-dom";
 import AuthRouter from "./authRouter";
 
-export interface MetaProps {
-    requiresAuth?: boolean;
-}
 
-export interface AppRouteObject {
-    children?: AppRouteObject[];
-    element?: React.ReactNode;
-    path?: string;
-    meta?: MetaProps;
-}
-
-export const testCusRouter = () => {
-    const testRouters: AppRouteObject[] = [
-        {
-            element: <Login />,
-            path: '/login',
-            meta: {
-                requiresAuth: false
-            }
-        }
-    ]
-}
-
-export const getDomRouter = (appRouter: AppRouteObject[]): RouteObject[] => {
+export const getDomRouter = (appRouter: RouteObject[]): RouteObject[] => {
     let router: RouteObject[] = appRouter.map(function (value) {
         return {
             path: value.path,
-            element: getCompressRouter(value.element, value.meta)
+            element: getCompressRouter(value.element)
         }
     });
     return router;
 }
 
-const getCompressRouter = (element?: React.ReactNode, meta?: MetaProps): ReactElement | null => {
+const getCompressRouter = (element?: React.ReactNode): ReactElement | null => {
     if (!element)
         return null;
-    if (!meta)
-        return null;
-
-    return <AuthRouter element={element} meta={meta}></AuthRouter>;
+    return <AuthRouter></AuthRouter>;
 }
-
-export type bar = RouteProps & MetaProps

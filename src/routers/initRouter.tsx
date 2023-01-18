@@ -12,57 +12,76 @@ import MenuManage from '@/views/System/MenuManage/MenuManage';
 import PromiseManage from '@/views/System/PromiseManage/PromiseManage';
 import UserCreate from '@/views/System/UserManage/UserCreate';
 
-const routerMeta = async (obj: any) => {
-  return obj;
-}
-
+// handle 要如何使用 TS??? 先放著
 const rootRouteList: RouteObject[] = [
   {
-    id: 'login',
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/',
-    element: <Layouts />,
+    element: <AuthRouter />,
     children: [
       {
-        path: '',
-        element: <Navigate to="Portal" />
+        path: '/login',
+        element: <Login />,
+        handle: {
+          routeMeta: {
+            isAuth: false,
+            title: "登入"
+          }
+        }
       },
       {
-        path: 'Portal',
-        element: <Portal></Portal>,
+        path: '/',
+        element: <Layouts />,
+        handle: {
+          routeMeta: {
+            isAuth: true,
+            title: "測試"
+          }
+        },
+        children: [
+          {
+            path: '',
+            element: <Navigate to="Portal" />,
+          },
+          {
+            path: 'Portal',
+            element: <Portal></Portal>,
+            handle: {
+              routeMeta: {
+                isAuth: true,
+                title: "測試2"
+              }
+            },
+          },
+          {
+            path: 'UserManage',
+            element: <UserManage></UserManage>
+          },
+          {
+            path: 'UserManage/Create',
+            element: <UserCreate></UserCreate>
+          },
+          {
+            path: 'RoleManage',
+            element: <RoleManage></RoleManage>
+          },
+          {
+            path: 'MenuManage',
+            element: <MenuManage></MenuManage>
+          },
+          {
+            path: 'PromiseManage',
+            element: <PromiseManage></PromiseManage>
+          },
+          {
+            path: 'RequestDemo',
+            element: <RequestDemo></RequestDemo>
+          }
+        ]
       },
       {
-        path: 'UserManage',
-        element: <UserManage></UserManage>
-      },
-      {
-        path: 'UserManage/Create',
-        element: <UserCreate></UserCreate>
-      },
-      {
-        path: 'RoleManage',
-        element: <RoleManage></RoleManage>
-      },
-      {
-        path: 'MenuManage',
-        element: <MenuManage></MenuManage>
-      },
-      {
-        path: 'PromiseManage',
-        element: <PromiseManage></PromiseManage>
-      },
-      {
-        path: 'RequestDemo',
-        element: <RequestDemo></RequestDemo>
+        path: '*',
+        element: <NotFound></NotFound>
       }
     ]
-  },
-  {
-    path: '*',
-    element: <NotFound></NotFound>
   }
 ];
 
