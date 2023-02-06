@@ -1,10 +1,12 @@
 import React from 'react'
 import { ConfigProvider, message, theme } from 'antd'
-import GetRouters from './routers';
+import GetRouters from '@/routers/initRouter';
 import useCurrentTheme from '@/hooks/useCurrentTheme';
 import 'antd/dist/reset.css'
 import './App.css'
 import { THEME } from './config/config';
+import { RouterProvider } from 'react-router-dom';
+import AuthRouter from './routers/utils/authRouter';
 
 function App() {
 
@@ -22,7 +24,9 @@ function App() {
             algorithm: currentTheme.theme === THEME.DARK ? theme.darkAlgorithm : theme.defaultAlgorithm
           }
         }>
-        <GetRouters></GetRouters>
+        <RouterProvider router={GetRouters()} />
+        {/* 改為使用 6.4 以上的 createBrowserRouter */}
+        {/* <GetRouters/> */}
       </ConfigProvider>
     </React.Fragment>
   )
